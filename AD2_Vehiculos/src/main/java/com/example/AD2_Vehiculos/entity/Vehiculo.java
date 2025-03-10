@@ -1,11 +1,23 @@
 package com.example.AD2_Vehiculos.entity;
 
+import jakarta.persistence.*;
+import org.springframework.data.annotation.AccessType;
+
+@Entity
+// Usar estratexia de herencia JOINED
+@AccessType(AccessType.Type.FIELD)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Vehiculo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long idVehiculo;
     private String marca;
     private String modelo;
     private short anio;
     private int precio;
+    @ManyToOne
+    @JoinColumn(name = "propietario_id", nullable = false)
+    private Propietario propietario;
 
     public Vehiculo(){
 
@@ -56,6 +68,14 @@ public class Vehiculo {
 
     public void setPrecio(int precio) {
         this.precio = precio;
+    }
+
+    public Propietario getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Propietario propietario) {
+        this.propietario = propietario;
     }
 
     @Override
