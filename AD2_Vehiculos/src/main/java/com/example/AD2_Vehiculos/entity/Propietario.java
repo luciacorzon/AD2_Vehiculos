@@ -13,8 +13,12 @@ public class Propietario {
     private long idPropietario;
     private String nombre;
     private String apellidos;
-    @OneToMany(mappedBy = "propietario")
+    @OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL) // Cascade para entidade débiles (?)
     private List<Vehiculo> vehiculos;
+
+    // Poñer SEMPRE o constructor vacio para JPA, senon dá fallo
+    public Propietario() {
+    }
 
     public Propietario(String nombre, String apellidos, List<Vehiculo> vehiculo) {
         this.nombre = nombre;
@@ -44,6 +48,12 @@ public class Propietario {
 
     public void setVehiculo(List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
+    }
+
+    public void addVehiculo(Vehiculo vehiculo){
+        vehiculos.add(vehiculo);
+        // Hai que indicarlle o propietario
+        vehiculo.setPropietario(this);
     }
 
     @Override

@@ -6,6 +6,8 @@ import org.springframework.data.annotation.AccessType;
 @Entity
 // Usar estratexia de herencia JOINED
 @AccessType(AccessType.Type.FIELD)
+// Crea unha tabla vehiculo con todos estes atributos e despois tablas relacionadas,
+// relaciona con moto, coche...
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Vehiculo {
     @Id

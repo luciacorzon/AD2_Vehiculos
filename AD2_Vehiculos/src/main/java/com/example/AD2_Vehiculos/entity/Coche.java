@@ -7,11 +7,16 @@ import org.springframework.data.annotation.AccessType;
 @Entity
 @PrimaryKeyJoinColumn(name = "id_vehiculo")
 @AccessType(AccessType.Type.FIELD)
-public class Coche {
+public class Coche extends Vehiculo{
     private int puertas;
     private int plazas;
 
-    public Coche(int puertas, int plazas) {
+    public Coche() {
+        super();
+    }
+
+    public Coche(String marca, String modelo, short anio, int precio, int puertas, int plazas) {
+        super(marca, modelo, anio, precio);
         this.puertas = puertas;
         this.plazas = plazas;
     }
