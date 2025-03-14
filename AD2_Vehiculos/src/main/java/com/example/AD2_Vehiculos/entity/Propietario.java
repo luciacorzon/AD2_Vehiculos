@@ -20,10 +20,9 @@ public class Propietario {
     public Propietario() {
     }
 
-    public Propietario(String nombre, String apellidos, List<Vehiculo> vehiculo) {
+    public Propietario(String nombre, String apellidos) {
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.vehiculos = vehiculos;
     }
 
     public String getNombre() {
@@ -42,11 +41,11 @@ public class Propietario {
         this.apellidos = apellidos;
     }
 
-    public List<Vehiculo> getVehiculo() {
+    public List<Vehiculo> getVehiculos() {
         return vehiculos;
     }
 
-    public void setVehiculo(List<Vehiculo> vehiculos) {
+    public void setVehiculos(List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
 
