@@ -1,23 +1,24 @@
 package com.example.AD2_Vehiculos.dto;
 
+import com.example.AD2_Vehiculos.entity.Propietario;
 import com.example.AD2_Vehiculos.entity.Vehiculo;
 
 public class VehiculoDTO {
     private Long idVehiculo;
     private String marca;
     private String modelo;
-    private Short ano;
+    private Short anio;
     private Double precio;
-    private String propietario;
+    private Propietario propietario;
 
     public VehiculoDTO() {
     }
 
-    public VehiculoDTO(Long idVehiculo, String marca, String modelo, Short ano, Double precio, String propietario) {
+    public VehiculoDTO(Long idVehiculo, String marca, String modelo, Short anio, Double precio, Propietario propietario) {
         this.idVehiculo = idVehiculo;
         this.marca = marca;
         this.modelo = modelo;
-        this.ano = ano;
+        this.anio = anio;
         this.precio = precio;
         this.propietario = propietario;
     }
@@ -46,12 +47,12 @@ public class VehiculoDTO {
         this.modelo = modelo;
     }
 
-    public Short getAno() {
-        return ano;
+    public Short getAnio() {
+        return anio;
     }
 
-    public void setAno(Short ano) {
-        this.ano = ano;
+    public void setAnio(Short ano) {
+        this.anio = ano;
     }
 
     public Double getPrecio() {
@@ -62,17 +63,18 @@ public class VehiculoDTO {
         this.precio = precio;
     }
 
-    public String getPropietario() {
+    public Propietario getPropietario() {
         return propietario;
     }
 
-    public void setPropietario(String propietario) {
+    public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
     }
 
     public static VehiculoDTO of(Vehiculo vehiculo) {
         return new VehiculoDTO(vehiculo.getIdVehiculo(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getAnio(), (vehiculo.getPrecio() * 1.00),
-                (vehiculo.getPropietario().getNombre() + " " + vehiculo.getPropietario().getApellidos()));
+                //(vehiculo.getPropietario().getNombre() + " " + vehiculo.getPropietario().getApellidos()));
+                vehiculo.getPropietario());
     }
 
     @Override
@@ -81,7 +83,7 @@ public class VehiculoDTO {
                 "idVehiculo=" + idVehiculo +
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
-                ", ano=" + ano +
+                ", año=" + anio +
                 ", precio=" + precio +
                 ", propietario='" + propietario + '\'' +
                 '}';

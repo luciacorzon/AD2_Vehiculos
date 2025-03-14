@@ -26,17 +26,17 @@ public interface VehiculoRepository extends JpaRepository<Vehiculo, Long> {
     Optional<Vehiculo> findById(Long id);
 
     // 3. Método que verifica si existe un vehículo con un id y un tipo de vehículo concreto
-    @Query ("SELECT CASE WHEN COUNT(v) > 0 THEN true ELSE false END FROM Vehiculo v WHERE v.idVehiculo = :idVehiculo AND TYPE(v) = :tipo")
+    @Query("SELECT CASE WHEN COUNT(v) > 0 THEN true ELSE false END FROM Vehiculo v WHERE v.idVehiculo = :idVehiculo AND TYPE(v) = :tipo")
     boolean existsByVehiculoAndVehiculoType(@Param("tipo") Class tipoVehiculo, Long idVehiculo);
     // TYPE(v) comproba de qué clase é o obxecto, si MOTO ou COCHE
 
     // 4. Método que devuelve un VehiculoDTO con campos específicos (idVehiculo, marca, modelo, año, precio, propietario)
     @Query("SELECT new com.example.AD2_Vehiculos.dto.VehiculoDTO(v.idVehiculo, v.marca, v.modelo, v.anio, v.precio, v.propietario) " +
-            "FROM Vehiculo v WHERE v.idVehiculo = :idVehiculo")
+            "FROM Vehiculo v JOIN FETCH v.propietario WHERE v.idVehiculo = :idVehiculo")
     VehiculoDTO findVehiculoDTOById(@Param("idVehiculo") Long idVehiculo);
 
     // 5. Método que devuelve todos los vehículos en formato VehiculoDTO, paginados y ordenados
     @Query("SELECT new com.example.AD2_Vehiculos.dto.VehiculoDTO(v.idVehiculo, v.marca, v.modelo, v.anio, v.precio, v.propietario) " +
-            "FROM Vehiculo v ORDER BY v.marca ASC, v.anio DESC")
+            "FROM Vehiculo v JOIN FETCH v.propietario ORDER BY v.marca ASC, v.anio DESC")
     Page<VehiculoDTO> findAllVehiculosDTO(Pageable pageable);
 }

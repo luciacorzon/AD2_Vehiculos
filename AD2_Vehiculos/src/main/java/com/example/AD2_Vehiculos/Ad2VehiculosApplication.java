@@ -1,5 +1,6 @@
 package com.example.AD2_Vehiculos;
 
+import com.example.AD2_Vehiculos.dto.VehiculoDTO;
 import com.example.AD2_Vehiculos.entity.Moto;
 import com.example.AD2_Vehiculos.entity.Propietario;
 import com.example.AD2_Vehiculos.entity.Vehiculo;
@@ -71,16 +72,52 @@ public class Ad2VehiculosApplication implements ApplicationRunner {
 		vehiculoRepository.save(moto3);*/
 		vehiculoRepository.saveAll(List.of(moto1, moto2, moto3));
 
-		Pageable pageable = PageRequest.of(0, 5);
-		Page<Vehiculo> page = vehiculoRepository.findAll(pageable);  // Obtenemos la primera página con 5 motos
 
-		// Mostrar los resultados de la página (por ejemplo, en consola)
+		// PROBAMOS AS CONSULTAS DE VEHICULO REPOSITORY
+
+		// 1. Filtrar por marca
+		System.out.println("\nConsulta 1:");
+		List<Vehiculo> v1 = vehiculoRepository.findByMarca("Honda");
+		v1.forEach(v -> System.out.println(v));
+
+
+
+		// 2. Atopar todos os vehiculos e devolvelos paginados
+		// Primeiro creamos un Pageable indicando en que páxina se comeza e de que tamaño será cada páxina
+		System.out.println("\nConsulta 2:");
+		Pageable pageable = PageRequest.of(0, 5);
+		// Obtemos a primeira páxina
+		Page<Vehiculo> page = vehiculoRepository.findAll(pageable);
+		// Mostrar os resultados da páxina
 		System.out.println("Página 1 de Vehículos:");
 		page.getContent().forEach(moto -> System.out.println(moto.getMarca() + " " + moto.getModelo()));
 
 		// Puedes hacer más acciones aquí, como mostrar la cantidad total de páginas, elementos, etc.
 		System.out.println("Total de páginas: " + page.getTotalPages());
 		System.out.println("Total de elementos: " + page.getTotalElements());
+
+
+
+		// 3. Comprobar si existe algún vehiculo con un id e tipo concretos
+		System.out.println("\nConsulta 3:");
+		System.out.println("¿Existe unha Moto con ID 1?");
+		boolean existe = vehiculoRepository.existsByVehiculoAndVehiculoType(Moto.class, 1L);
+		System.out.println(existe);
+
+
+
+		// 4. Obter un VehiculoDTO
+		System.out.println("\nConsulta 4:");
+		VehiculoDTO vDTO = vehiculoRepository.findVehiculoDTOById(1L);
+		System.out.println(vDTO);
+
+
+		// 5. Obter todos os vehiculos de forma paginada e ordenada
+		// Pásolle o Pageable que se creou para a consulta 2
+		System.out.println("\nConsulta 5:");
+		Page<VehiculoDTO> pageDto = vehiculoRepository.findAllVehiculosDTO(pageable);
+		page.getContent().forEach(moto -> System.out.println(moto.getMarca() + " " + moto.getModelo()));
+
 
 	}
 }

@@ -25,6 +25,10 @@ public class Propietario {
         this.apellidos = apellidos;
     }
 
+    public long getIdPropietario() {
+        return idPropietario;
+    }
+
     public String getNombre() {
         return nombre;
     }
